@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Battle Royale Prototype</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div id="hud">
+    <div class="top">
+      <div>❤️ <span id="health">100</span></div>
+      <div>🤖 Bots: <span id="bots">8</span></div>
+    </div>
+
+    <div id="crosshair">+</div>
+
+    <div id="ammo">
+      🔫 <span id="ammoCount">30</span> / 120
+    </div>
+
+    <div id="zone">
+      Safe Zone: <span id="zoneSize">100</span>m
+    </div>
+
+    <div id="message"></div>
+  </div>
+
+  <div id="startScreen">
+    <h1>BATTLE ROYALE</h1>
+    <p>Eliminate all bots and survive.</p>
+    <button id="startButton">START GAME</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.min.js"></script>
+  <script src="game.js"></script>
+
+</body>
+</html>

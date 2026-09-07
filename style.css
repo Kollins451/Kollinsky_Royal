@@ -1,0 +1,118 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background: #000;
+  user-select: none;
+}
+
+#hud {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  color: white;
+  font-weight: bold;
+}
+
+.top {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 20px;
+}
+
+#crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  font-size: 30px;
+  font-weight: normal;
+}
+
+#ammo {
+  position: absolute;
+  right: 25px;
+  bottom: 25px;
+
+  font-size: 24px;
+}
+
+#zone {
+  position: absolute;
+  top: 65px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  padding: 8px 15px;
+  border-radius: 10px;
+
+  background: rgba(0,0,0,0.5);
+}
+
+#message {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  text-align: center;
+  font-size: 35px;
+}
+
+#startScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  background: rgba(0,0,0,0.85);
+
+  text-align: center;
+}
+
+#startScreen h1 {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+#startScreen p {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+#startButton {
+  border: none;
+  padding: 15px 35px;
+
+  border-radius: 10px;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+#startButton:hover {
+  transform: scale(1.05);
+}
