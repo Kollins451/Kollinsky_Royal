@@ -1,54 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0,
+                   maximum-scale=1.0, user-scalable=no">
 
-  <title>Kollinsky Battle Royale</title>
+    <title>Kollinsky Battle Royale</title>
 
-  <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <div id="startScreen">
-    <div class="logo">KOLLINSKY</div>
-    <h1>BATTLE ROYALE</h1>
-    <p>Survive. Fight. Become the last player standing.</p>
+    <!-- START MENU -->
+    <div id="menu">
+        <div class="logo">KOLLINSKY</div>
 
-    <button id="startButton">START GAME</button>
+        <h1>BATTLE ROYALE</h1>
 
-    <p id="loadingText"></p>
-  </div>
+        <p>Survive. Fight. Become the last player standing.</p>
 
-  <div id="hud">
-
-    <div class="topHud">
-      <div>❤️ <span id="health">100</span></div>
-      <div>🤖 <span id="bots">8</span> ENEMIES</div>
+        <button id="startBtn">START GAME</button>
     </div>
 
-    <div id="crosshair">+</div>
+    <!-- THREE.JS -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.min.js"></script>
 
-    <div id="zone">
-      SAFE ZONE:
-      <span id="zoneSize">100</span>m
-    </div>
-
-    <div id="ammo">
-      🔫 <span id="ammoCount">30</span> / 120
-    </div>
-
-    <div id="message"></div>
-
-  </div>
-
-  <!-- THREE.JS -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.min.js"></script>
-
-  <!-- OUR GAME -->
-  <script src="game.js"></script>
+    <!-- GAME -->
+    <script src="game.js"></script>
 
 </body>
 </html>
