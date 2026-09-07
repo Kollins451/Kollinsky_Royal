@@ -1,34 +1,1003 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
+    <!-- =========================================================
+         BASIC PAGE SETTINGS
+    ========================================================== -->
+
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0,
-                   maximum-scale=1.0, user-scalable=no">
 
-    <title>Kollinsky Battle Royale</title>
+    <meta
+        name="viewport"
+        content="width=device-width,
+                 initial-scale=1.0,
+                 maximum-scale=1.0,
+                 user-scalable=no,
+                 viewport-fit=cover"
+    >
 
-    <link rel="stylesheet" href="style.css">
+    <meta
+        name="theme-color"
+        content="#050914"
+    >
+
+    <meta
+        name="mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+    >
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="Kollinsky Battle Royale"
+    >
+
+    <meta
+        name="description"
+        content="Kollinsky Battle Royale - Survive, fight and become the last player standing."
+    >
+
+
+    <!-- =========================================================
+         TITLE
+    ========================================================== -->
+
+    <title>
+        Kollinsky Battle Royale
+    </title>
+
+
+    <!-- =========================================================
+         GAME CSS
+    ========================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+
+    <!-- =========================================================
+         EXTRA MOBILE / GAME STYLES
+    ========================================================== -->
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #050914;
+            font-family: Arial, Helvetica, sans-serif;
+            touch-action: none;
+        }
+
+        body {
+            position: relative;
+        }
+
+        button {
+            font-family: Arial, Helvetica, sans-serif;
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+
+
+        /* =====================================================
+           START MENU
+        ====================================================== */
+
+        #menu {
+            position: fixed;
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    #0d4da0 0%,
+                    #061a3a 45%,
+                    #02050c 100%
+                );
+
+            color: white;
+
+            z-index: 10000;
+
+            padding: 25px;
+        }
+
+
+        #menu .logo {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 9px;
+            margin-bottom: 15px;
+            opacity: 0.95;
+        }
+
+
+        #menu h1 {
+            margin: 0;
+
+            font-size: clamp(
+                42px,
+                9vw,
+                100px
+            );
+
+            font-weight: 900;
+
+            letter-spacing: 3px;
+
+            line-height: 1;
+
+            text-shadow:
+                0 4px 20px rgba(0,0,0,0.45);
+        }
+
+
+        #menu p {
+            margin-top: 22px;
+            margin-bottom: 35px;
+
+            font-size: clamp(
+                14px,
+                2vw,
+                21px
+            );
+
+            color: rgba(255,255,255,0.8);
+
+            max-width: 600px;
+        }
+
+
+        /* =====================================================
+           START BUTTON
+        ====================================================== */
+
+        #startBtn {
+            min-width: 220px;
+
+            padding: 18px 35px;
+
+            border-radius: 12px;
+
+            background: white;
+
+            color: #071225;
+
+            font-size: 18px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            box-shadow:
+                0 10px 35px rgba(0,0,0,0.35);
+
+            transition:
+                transform 0.15s ease,
+                box-shadow 0.15s ease;
+        }
+
+
+        #startBtn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,0.45);
+        }
+
+
+        #startBtn:active {
+            transform: scale(0.96);
+        }
+
+
+        /* =====================================================
+           LOADING SCREEN
+        ====================================================== */
+
+        #loadingScreen {
+            position: fixed;
+
+            inset: 0;
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-direction: column;
+
+            background: #050914;
+
+            color: white;
+
+            z-index: 9999;
+
+            text-align: center;
+        }
+
+
+        #loadingScreen h2 {
+            margin-bottom: 20px;
+        }
+
+
+        #loadingBar {
+            width: min(400px, 75vw);
+
+            height: 8px;
+
+            background: rgba(255,255,255,0.15);
+
+            border-radius: 20px;
+
+            overflow: hidden;
+        }
+
+
+        #loadingProgress {
+            width: 0%;
+
+            height: 100%;
+
+            background: white;
+
+            transition: width 0.3s ease;
+        }
+
+
+        /* =====================================================
+           ROTATE PHONE SCREEN
+        ====================================================== */
+
+        #rotateScreen {
+            position: fixed;
+
+            inset: 0;
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-direction: column;
+
+            background: #030711;
+
+            color: white;
+
+            z-index: 20000;
+
+            text-align: center;
+
+            padding: 30px;
+        }
+
+
+        #rotateScreen .phoneIcon {
+            font-size: 70px;
+
+            margin-bottom: 20px;
+
+            animation:
+                rotatePhone 1.5s infinite
+                ease-in-out;
+        }
+
+
+        #rotateScreen h2 {
+            font-size: 28px;
+
+            margin: 0 0 10px;
+        }
+
+
+        #rotateScreen p {
+            color: rgba(255,255,255,0.7);
+
+            max-width: 400px;
+
+            line-height: 1.5;
+        }
+
+
+        @keyframes rotatePhone {
+
+            0% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(90deg);
+            }
+
+            100% {
+                transform: rotate(90deg);
+            }
+
+        }
+
+
+        /* =====================================================
+           GAME HUD
+        ====================================================== */
+
+        #gameHUD {
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            display: none;
+
+            z-index: 5000;
+
+            color: white;
+        }
+
+
+        /* =====================================================
+           HEALTH
+        ====================================================== */
+
+        #healthBox {
+            position: absolute;
+
+            left: 20px;
+            top: 20px;
+
+            width: 220px;
+
+            padding: 10px;
+
+            background:
+                rgba(0,0,0,0.35);
+
+            border-radius: 10px;
+
+            backdrop-filter: blur(5px);
+        }
+
+
+        #healthText {
+            font-size: 14px;
+
+            font-weight: 700;
+
+            margin-bottom: 7px;
+        }
+
+
+        #healthBar {
+            width: 100%;
+
+            height: 10px;
+
+            background:
+                rgba(255,255,255,0.2);
+
+            border-radius: 10px;
+
+            overflow: hidden;
+        }
+
+
+        #healthFill {
+            width: 100%;
+
+            height: 100%;
+
+            background: #25e36f;
+
+            transition:
+                width 0.2s ease;
+        }
+
+
+        /* =====================================================
+           AMMO
+        ====================================================== */
+
+        #ammoBox {
+            position: absolute;
+
+            right: 25px;
+            bottom: 25px;
+
+            font-size: 28px;
+
+            font-weight: 800;
+
+            text-shadow:
+                0 3px 10px rgba(0,0,0,0.8);
+        }
+
+
+        /* =====================================================
+           CROSSHAIR
+        ====================================================== */
+
+        #crosshair {
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            transform:
+                translate(-50%, -50%);
+
+            width: 28px;
+
+            height: 28px;
+        }
+
+
+        #crosshair::before,
+        #crosshair::after {
+            content: "";
+
+            position: absolute;
+
+            background: white;
+
+            box-shadow:
+                0 0 4px black;
+        }
+
+
+        #crosshair::before {
+            width: 2px;
+
+            height: 28px;
+
+            left: 13px;
+
+            top: 0;
+        }
+
+
+        #crosshair::after {
+            width: 28px;
+
+            height: 2px;
+
+            left: 0;
+
+            top: 13px;
+        }
+
+
+        /* =====================================================
+           MOBILE CONTROLS
+        ====================================================== */
+
+        #mobileControls {
+            position: fixed;
+
+            inset: 0;
+
+            display: none;
+
+            pointer-events: none;
+
+            z-index: 6000;
+        }
+
+
+        #joystickArea {
+            position: absolute;
+
+            left: 30px;
+            bottom: 30px;
+
+            width: 150px;
+            height: 150px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.08);
+
+            border:
+                2px solid
+                rgba(255,255,255,0.2);
+
+            pointer-events: auto;
+        }
+
+
+        #joystick {
+            position: absolute;
+
+            width: 65px;
+            height: 65px;
+
+            left: 42px;
+            top: 42px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.35);
+
+            border:
+                2px solid
+                rgba(255,255,255,0.6);
+        }
+
+
+        #fireButton {
+            position: absolute;
+
+            right: 35px;
+            bottom: 40px;
+
+            width: 90px;
+            height: 90px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(220,40,40,0.75);
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: 900;
+
+            pointer-events: auto;
+
+            border:
+                3px solid
+                rgba(255,255,255,0.5);
+        }
+
+
+        #jumpButton {
+            position: absolute;
+
+            right: 145px;
+            bottom: 50px;
+
+            width: 65px;
+            height: 65px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.2);
+
+            color: white;
+
+            font-weight: 800;
+
+            pointer-events: auto;
+        }
+
+
+        #reloadButton {
+            position: absolute;
+
+            right: 160px;
+            bottom: 130px;
+
+            width: 60px;
+            height: 60px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.2);
+
+            color: white;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            pointer-events: auto;
+        }
+
+
+        /* =====================================================
+           DESKTOP
+        ====================================================== */
+
+        @media (min-width: 900px) {
+
+            #mobileControls {
+                display: none !important;
+            }
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ====================================================== */
+
+        @media (max-width: 899px) {
+
+            #mobileControls {
+                display: block;
+            }
+
+            #healthBox {
+                left: 12px;
+                top: 12px;
+                width: 170px;
+            }
+
+            #ammoBox {
+                right: 15px;
+                bottom: 15px;
+                font-size: 22px;
+            }
+
+        }
+
+
+        /* =====================================================
+           PORTRAIT PHONE
+        ====================================================== */
+
+        @media (orientation: portrait) and (max-width: 899px) {
+
+            #rotateScreen {
+                display: flex;
+            }
+
+            #menu {
+                display: none !important;
+            }
+
+            #gameHUD {
+                display: none !important;
+            }
+
+            #mobileControls {
+                display: none !important;
+            }
+
+        }
+
+
+        /* =====================================================
+           CANVAS
+        ====================================================== */
+
+        canvas {
+            display: block;
+
+            width: 100%;
+
+            height: 100%;
+
+            touch-action: none;
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-    <!-- START MENU -->
+
+    <!-- =========================================================
+         START MENU
+    ========================================================== -->
+
     <div id="menu">
-        <div class="logo">KOLLINSKY</div>
 
-        <h1>BATTLE ROYALE</h1>
+        <div class="logo">
+            KOLLINSKY
+        </div>
 
-        <p>Survive. Fight. Become the last player standing.</p>
+        <h1>
+            BATTLE ROYALE
+        </h1>
 
-        <button id="startBtn">START GAME</button>
+        <p>
+            Survive. Fight. Become the last player standing.
+        </p>
+
+        <button
+            id="startBtn"
+            type="button"
+        >
+            START GAME
+        </button>
+
     </div>
 
-    <!-- THREE.JS -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.min.js"></script>
 
-    <!-- GAME -->
-    <script src="game.js"></script>
+    <!-- =========================================================
+         LOADING SCREEN
+    ========================================================== -->
+
+    <div id="loadingScreen">
+
+        <h2>
+            Loading Battle Royale...
+        </h2>
+
+        <div id="loadingBar">
+
+            <div id="loadingProgress"></div>
+
+        </div>
+
+        <p id="loadingText">
+            Preparing battlefield...
+        </p>
+
+    </div>
+
+
+    <!-- =========================================================
+         ROTATE PHONE SCREEN
+    ========================================================== -->
+
+    <div id="rotateScreen">
+
+        <div class="phoneIcon">
+            📱
+        </div>
+
+        <h2>
+            Rotate Your Phone
+        </h2>
+
+        <p>
+            Please turn your phone sideways
+            to play Kollinsky Battle Royale.
+        </p>
+
+    </div>
+
+
+    <!-- =========================================================
+         GAME HUD
+    ========================================================== -->
+
+    <div id="gameHUD">
+
+
+        <!-- HEALTH -->
+
+        <div id="healthBox">
+
+            <div id="healthText">
+                HP 100 / 100
+            </div>
+
+            <div id="healthBar">
+
+                <div id="healthFill"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CROSSHAIR -->
+
+        <div id="crosshair"></div>
+
+
+        <!-- AMMO -->
+
+        <div id="ammoBox">
+
+            🔫
+            <span id="ammo">
+                30
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         MOBILE CONTROLS
+    ========================================================== -->
+
+    <div id="mobileControls">
+
+
+        <!-- JOYSTICK -->
+
+        <div id="joystickArea">
+
+            <div id="joystick"></div>
+
+        </div>
+
+
+        <!-- FIRE -->
+
+        <button
+            id="fireButton"
+            type="button"
+        >
+            FIRE
+        </button>
+
+
+        <!-- JUMP -->
+
+        <button
+            id="jumpButton"
+            type="button"
+        >
+            JUMP
+        </button>
+
+
+        <!-- RELOAD -->
+
+        <button
+            id="reloadButton"
+            type="button"
+        >
+            RELOAD
+        </button>
+
+    </div>
+
+
+    <!-- =========================================================
+         THREE.JS
+         
+         IMPORTANT:
+         Three.js must load BEFORE game.js.
+    ========================================================== -->
+
+    <script
+        src="https://unpkg.com/three@0.161.0/build/three.min.js">
+    </script>
+
+
+    <!-- =========================================================
+         GAME JAVASCRIPT
+    ========================================================== -->
+
+    <script
+        src="game.js">
+    </script>
+
+
+    <!-- =========================================================
+         SAFETY CHECK
+         
+         This checks whether Three.js loaded.
+    ========================================================== -->
+
+    <script>
+
+        window.addEventListener(
+            "load",
+            function () {
+
+                if (
+                    typeof THREE === "undefined"
+                ) {
+
+                    console.error(
+                        "Three.js failed to load."
+                    );
+
+                    const errorBox =
+                        document.createElement("div");
+
+                    errorBox.style.position =
+                        "fixed";
+
+                    errorBox.style.inset =
+                        "0";
+
+                    errorBox.style.display =
+                        "flex";
+
+                    errorBox.style.alignItems =
+                        "center";
+
+                    errorBox.style.justifyContent =
+                        "center";
+
+                    errorBox.style.textAlign =
+                        "center";
+
+                    errorBox.style.padding =
+                        "30px";
+
+                    errorBox.style.background =
+                        "#050914";
+
+                    errorBox.style.color =
+                        "white";
+
+                    errorBox.style.fontFamily =
+                        "Arial";
+
+                    errorBox.style.zIndex =
+                        "50000";
+
+                    errorBox.innerHTML = `
+
+                        <div>
+
+                            <h1>
+                                Game Loading Error
+                            </h1>
+
+                            <p>
+                                The 3D game engine
+                                could not load.
+                            </p>
+
+                            <p>
+                                Please check your
+                                internet connection
+                                and refresh the page.
+                            </p>
+
+                        </div>
+
+                    `;
+
+                    document.body.appendChild(
+                        errorBox
+                    );
+
+                }
+
+            }
+        );
+
+    </script>
+
 
 </body>
+
 </html>
