@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width,
-             initial-scale=1.0,
-             maximum-scale=1.0,
-             user-scalable=no"
-  >
+  <meta name="viewport"
+        content="width=device-width,
+        initial-scale=1.0,
+        maximum-scale=1.0,
+        user-scalable=no">
 
   <title>KOLLINSKY BATTLE ROYALE</title>
 
   <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+      -webkit-user-select: none;
+      user-select: none;
     }
 
     html,
@@ -25,171 +25,104 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: #07111f;
+      background: #000;
       font-family: Arial, sans-serif;
     }
 
-    body {
-      touch-action: none;
+    #game {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
     }
 
+    /* START SCREEN */
     #startScreen {
       position: fixed;
       inset: 0;
-      z-index: 9999;
+      z-index: 1000;
 
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-
-      text-align: center;
+      align-items: center;
 
       background:
-        radial-gradient(
-          circle at center,
-          #1457a8 0%,
-          #07111f 75%
+        linear-gradient(
+          135deg,
+          #061018,
+          #0c2028,
+          #102d32
         );
 
       color: white;
+      text-align: center;
     }
 
-    .logo {
-      font-size: 18px;
-      letter-spacing: 8px;
-      font-weight: bold;
-      margin-bottom: 12px;
-      opacity: 0.9;
-    }
-
-    h1 {
-      font-size: clamp(42px, 8vw, 90px);
-      letter-spacing: 2px;
-      margin-bottom: 15px;
-      text-shadow: 0 4px 20px rgba(0,0,0,.5);
-    }
-
-    .subtitle {
-      font-size: 17px;
-      opacity: .85;
-      margin-bottom: 35px;
+    #startScreen h1 {
+      font-size: clamp(32px, 8vw, 72px);
+      line-height: 1.05;
+      letter-spacing: 3px;
+      margin-bottom: 40px;
     }
 
     #startButton {
       border: none;
       outline: none;
 
-      padding: 18px 55px;
+      padding: 18px 60px;
 
       border-radius: 10px;
 
-      background: white;
-      color: #101820;
+      background: #f5b400;
+      color: #111;
 
-      font-size: 19px;
+      font-size: 20px;
       font-weight: bold;
 
       cursor: pointer;
 
-      box-shadow:
-        0 8px 30px rgba(0,0,0,.35);
-
-      transition: transform .15s;
+      box-shadow: 0 5px 20px rgba(0,0,0,.4);
     }
 
     #startButton:active {
-      transform: scale(.96);
+      transform: scale(.95);
     }
 
-    #loading {
-      position: fixed;
-      inset: 0;
-      z-index: 10000;
-
-      display: none;
-
-      align-items: center;
-      justify-content: center;
-
-      background: #07111f;
-
-      color: white;
-
-      text-align: center;
-
-      padding: 25px;
-    }
-
-    #loadingBox {
-      max-width: 500px;
-    }
-
-    #loadingTitle {
-      font-size: 28px;
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
-
-    #loadingText {
-      font-size: 16px;
-      opacity: .8;
-      line-height: 1.5;
-    }
-
-    #loadingBar {
-      width: 260px;
-      height: 8px;
-
-      margin: 25px auto 0;
-
-      background: rgba(255,255,255,.15);
-
-      border-radius: 20px;
-
-      overflow: hidden;
-    }
-
-    #loadingProgress {
-      width: 0%;
-      height: 100%;
-
-      background: white;
-
-      transition: width .3s;
-    }
-
-    #rotateMessage {
+    /* ROTATE PHONE SCREEN */
+    #rotateScreen {
       display: none;
 
       position: fixed;
       inset: 0;
+      z-index: 2000;
 
-      z-index: 20000;
+      background: #000;
+      color: #fff;
 
-      background: #07111f;
-
-      color: white;
-
-      align-items: center;
       justify-content: center;
+      align-items: center;
 
       text-align: center;
-
       padding: 30px;
     }
 
-    #rotateMessage div {
-      max-width: 350px;
+    #rotateScreen h2 {
+      font-size: 30px;
+      margin-bottom: 15px;
     }
 
-    .rotateIcon {
-      font-size: 60px;
-      margin-bottom: 20px;
+    #rotateScreen p {
+      font-size: 17px;
+      opacity: .8;
     }
 
-    canvas {
-      display: block;
+    /* SHOW ROTATION MESSAGE ON PHONES */
+    @media (orientation: portrait) and (max-width: 900px) {
+      #rotateScreen {
+        display: flex;
+      }
     }
   </style>
 </head>
@@ -197,431 +130,33 @@
 <body>
 
   <!-- START SCREEN -->
-
   <div id="startScreen">
-
-    <div class="logo">
-      K O L L I N S K Y
-    </div>
-
     <h1>
+      KOLLINSKY<br>
       BATTLE ROYALE
     </h1>
-
-    <div class="subtitle">
-      Survive. Fight. Become the last player standing.
-    </div>
 
     <button id="startButton">
       START GAME
     </button>
-
   </div>
 
-
-  <!-- LOADING SCREEN -->
-
-  <div id="loading">
-
-    <div id="loadingBox">
-
-      <div id="loadingTitle">
-        LOADING GAME
-      </div>
-
-      <div id="loadingText">
-        Preparing the 3D battle arena...
-      </div>
-
-      <div id="loadingBar">
-        <div id="loadingProgress"></div>
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- ROTATE PHONE MESSAGE -->
-
-  <div id="rotateMessage">
-
+  <!-- PHONE ROTATION MESSAGE -->
+  <div id="rotateScreen">
     <div>
-
-      <div class="rotateIcon">
-        📱
-      </div>
-
-      <h2>
-        ROTATE YOUR PHONE
-      </h2>
-
-      <p style="margin-top:12px;opacity:.75;">
-        Turn your phone sideways to play
-        KOLLINSKY BATTLE ROYALE.
-      </p>
-
+      <h2>↻ Rotate Your Phone</h2>
+      <p>Please turn your phone sideways to play.</p>
     </div>
-
   </div>
 
+  <!-- GAME CANVAS -->
+  <canvas id="game"></canvas>
 
-  <!-- THREE.JS LOADER -->
+  <!-- LOCAL THREE.JS -->
+  <script src="three.min.js"></script>
 
-  <script>
-
-    const loading =
-      document.getElementById("loading");
-
-    const loadingText =
-      document.getElementById("loadingText");
-
-    const loadingProgress =
-      document.getElementById("loadingProgress");
-
-
-    function showLoading(text, progress) {
-
-      loading.style.display = "flex";
-
-      loadingText.textContent = text;
-
-      loadingProgress.style.width =
-        progress + "%";
-    }
-
-
-    function loadScript(url) {
-
-      return new Promise(
-        (resolve, reject) => {
-
-          const script =
-            document.createElement("script");
-
-          script.src = url;
-
-          script.onload = () => {
-            resolve();
-          };
-
-          script.onerror = () => {
-            reject();
-          };
-
-          document.head.appendChild(script);
-
-        }
-      );
-
-    }
-
-
-    async function loadThreeJS() {
-
-      showLoading(
-        "Connecting to 3D engine...",
-        20
-      );
-
-      /*
-        FIRST SERVER
-      */
-
-      try {
-
-        await loadScript(
-          "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.min.js"
-        );
-
-        if (
-          typeof THREE !== "undefined"
-        ) {
-
-          showLoading(
-            "3D engine ready...",
-            70
-          );
-
-          loadGameJS();
-
-          return;
-        }
-
-      } catch (error) {
-
-        console.log(
-          "Primary Three.js server failed."
-        );
-
-      }
-
-
-      /*
-        BACKUP SERVER
-      */
-
-      showLoading(
-        "Trying backup 3D engine server...",
-        45
-      );
-
-
-      try {
-
-        await loadScript(
-          "https://cdnjs.cloudflare.com/ajax/libs/three.js/r161/three.min.js"
-        );
-
-        if (
-          typeof THREE !== "undefined"
-        ) {
-
-          showLoading(
-            "3D engine ready...",
-            70
-          );
-
-          loadGameJS();
-
-          return;
-        }
-
-      } catch (error) {
-
-        console.log(
-          "Backup Three.js server failed."
-        );
-
-      }
-
-
-      /*
-        BOTH FAILED
-      */
-
-      loading.innerHTML = `
-
-        <div id="loadingBox">
-
-          <div id="loadingTitle">
-            3D ENGINE ERROR
-          </div>
-
-          <div id="loadingText">
-
-            The game could not connect to
-            the Three.js 3D engine.
-
-            <br><br>
-
-            Please check your internet connection,
-            then refresh the page.
-
-          </div>
-
-          <button
-            onclick="location.reload()"
-            style="
-              margin-top:25px;
-              padding:14px 30px;
-              border:0;
-              border-radius:8px;
-              font-weight:bold;
-              cursor:pointer;
-            "
-          >
-            REFRESH GAME
-          </button>
-
-        </div>
-
-      `;
-
-    }
-
-
-    function loadGameJS() {
-
-      showLoading(
-        "Starting battle arena...",
-        85
-      );
-
-
-      const script =
-        document.createElement("script");
-
-      script.src =
-        "game.js";
-
-      script.onload = () => {
-
-        showLoading(
-          "Game ready!",
-          100
-        );
-
-        setTimeout(() => {
-
-          loading.style.display =
-            "none";
-
-        }, 500);
-
-      };
-
-
-      script.onerror = () => {
-
-        loading.innerHTML = `
-
-          <div id="loadingBox">
-
-            <div id="loadingTitle">
-              GAME FILE ERROR
-            </div>
-
-            <div id="loadingText">
-
-              Three.js loaded successfully,
-              but <b>game.js</b> could not load.
-
-              <br><br>
-
-              Make sure your repository contains:
-
-              <br><br>
-
-              <b>game.js</b>
-
-            </div>
-
-          </div>
-
-        `;
-
-      };
-
-
-      document.body.appendChild(script);
-
-    }
-
-
-    /*
-      Start loading Three.js
-    */
-
-    loadThreeJS();
-
-  </script>
-
-
-  <!-- START BUTTON -->
-
-  <script>
-
-    document
-      .getElementById("startButton")
-      .addEventListener(
-        "click",
-        async function() {
-
-          const start =
-            document.getElementById(
-              "startScreen"
-            );
-
-          start.style.display =
-            "none";
-
-
-          /*
-            Try fullscreen
-          */
-
-          try {
-
-            if (
-              document.documentElement
-                .requestFullscreen
-            ) {
-
-              await document
-                .documentElement
-                .requestFullscreen();
-
-            }
-
-          } catch (error) {}
-
-
-          /*
-            Try landscape
-          */
-
-          try {
-
-            if (
-              screen.orientation &&
-              screen.orientation.lock
-            ) {
-
-              await screen.orientation
-                .lock("landscape");
-
-            }
-
-          } catch (error) {}
-
-        }
-      );
-
-
-    /*
-      iPhone / portrait detection
-    */
-
-    function checkOrientation() {
-
-      const rotate =
-        document.getElementById(
-          "rotateMessage"
-        );
-
-      if (
-        window.innerWidth <
-        window.innerHeight
-      ) {
-
-        rotate.style.display =
-          "flex";
-
-      } else {
-
-        rotate.style.display =
-          "none";
-
-      }
-
-    }
-
-
-    window.addEventListener(
-      "resize",
-      checkOrientation
-    );
-
-    window.addEventListener(
-      "orientationchange",
-      checkOrientation
-    );
-
-
-    checkOrientation();
-
-  </script>
+  <!-- GAME JAVASCRIPT -->
+  <script src="game.js"></script>
 
 </body>
 </html>
