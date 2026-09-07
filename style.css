@@ -4,24 +4,112 @@
   padding: 0;
 }
 
+html,
 body {
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  font-family: Arial, sans-serif;
+
   background: #000;
+
+  font-family: Arial, sans-serif;
+
+  touch-action: none;
   user-select: none;
 }
+
+/* =========================
+   START SCREEN
+========================= */
+
+#startScreen {
+  position: fixed;
+  inset: 0;
+
+  z-index: 100;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  color: white;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #253b55,
+      #080b10 70%
+    );
+}
+
+.logo {
+  font-size: 20px;
+  letter-spacing: 8px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#startScreen h1 {
+  font-size: clamp(35px, 8vw, 70px);
+  margin-bottom: 15px;
+}
+
+#startScreen p {
+  font-size: 15px;
+  max-width: 400px;
+  margin-bottom: 30px;
+  opacity: .8;
+}
+
+#startButton {
+  padding: 16px 45px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: white;
+  color: black;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: transform .2s;
+}
+
+#startButton:active {
+  transform: scale(.95);
+}
+
+#loadingText {
+  margin-top: 20px;
+  min-height: 20px;
+}
+
+
+/* =========================
+   HUD
+========================= */
 
 #hud {
   position: fixed;
   inset: 0;
+
   z-index: 10;
+
   pointer-events: none;
+
   color: white;
-  font-weight: bold;
 }
 
-.top {
+.topHud {
   position: absolute;
+
   top: 20px;
   left: 20px;
   right: 20px;
@@ -29,90 +117,99 @@ body {
   display: flex;
   justify-content: space-between;
 
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 #crosshair {
   position: absolute;
-  top: 50%;
+
   left: 50%;
+  top: 50%;
 
   transform: translate(-50%, -50%);
 
-  font-size: 30px;
-  font-weight: normal;
-}
-
-#ammo {
-  position: absolute;
-  right: 25px;
-  bottom: 25px;
-
-  font-size: 24px;
+  font-size: 28px;
 }
 
 #zone {
   position: absolute;
+
   top: 65px;
   left: 50%;
 
   transform: translateX(-50%);
 
-  padding: 8px 15px;
-  border-radius: 10px;
+  padding: 8px 14px;
 
-  background: rgba(0,0,0,0.5);
+  border-radius: 8px;
+
+  background: rgba(0,0,0,.45);
+
+  font-size: 14px;
+}
+
+#ammo {
+  position: absolute;
+
+  right: 25px;
+  bottom: 25px;
+
+  font-size: 22px;
+  font-weight: bold;
 }
 
 #message {
   position: absolute;
-  top: 35%;
+
   left: 50%;
+  top: 35%;
 
   transform: translate(-50%, -50%);
 
-  text-align: center;
-  font-size: 35px;
-}
-
-#startScreen {
-  position: fixed;
-  inset: 0;
-  z-index: 20;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  color: white;
-  background: rgba(0,0,0,0.85);
-
-  text-align: center;
-}
-
-#startScreen h1 {
-  font-size: 48px;
-  margin-bottom: 15px;
-}
-
-#startScreen p {
-  font-size: 18px;
-  margin-bottom: 30px;
-}
-
-#startButton {
-  border: none;
-  padding: 15px 35px;
-
-  border-radius: 10px;
-
-  font-size: 18px;
+  font-size: 32px;
   font-weight: bold;
 
-  cursor: pointer;
+  text-align: center;
 }
 
-#startButton:hover {
-  transform: scale(1.05);
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (orientation: portrait) {
+
+  #startScreen::after {
+    content: "↻ Rotate your phone to landscape to play";
+
+    position: absolute;
+
+    bottom: 30px;
+
+    font-size: 14px;
+
+    opacity: .7;
+  }
+}
+
+
+/* =========================
+   SMALL PHONES
+========================= */
+
+@media (max-width: 500px) {
+
+  .topHud {
+    font-size: 15px;
+  }
+
+  #ammo {
+    font-size: 18px;
+  }
+
+  #zone {
+    font-size: 12px;
+  }
+
 }
