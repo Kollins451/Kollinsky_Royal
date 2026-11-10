@@ -1,162 +1,208 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-  <meta name="viewport"
-        content="width=device-width,
-        initial-scale=1.0,
-        maximum-scale=1.0,
-        user-scalable=no">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
 
-  <title>KOLLINSKY BATTLE ROYALE</title>
+    <title>KOLLINSKY BATTLE ROYALE</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      -webkit-user-select: none;
-      user-select: none;
-    }
-
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: #000;
-      font-family: Arial, sans-serif;
-    }
-
-    #game {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    /* START SCREEN */
-    #startScreen {
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      background:
-        linear-gradient(
-          135deg,
-          #061018,
-          #0c2028,
-          #102d32
-        );
-
-      color: white;
-      text-align: center;
-    }
-
-    #startScreen h1 {
-      font-size: clamp(32px, 8vw, 72px);
-      line-height: 1.05;
-      letter-spacing: 3px;
-      margin-bottom: 40px;
-    }
-
-    #startButton {
-      border: none;
-      outline: none;
-
-      padding: 18px 60px;
-
-      border-radius: 10px;
-
-      background: #f5b400;
-      color: #111;
-
-      font-size: 20px;
-      font-weight: bold;
-
-      cursor: pointer;
-
-      box-shadow: 0 5px 20px rgba(0,0,0,.4);
-    }
-
-    #startButton:active {
-      transform: scale(.95);
-    }
-
-    /* ROTATE PHONE SCREEN */
-    #rotateScreen {
-      display: none;
-
-      position: fixed;
-      inset: 0;
-      z-index: 2000;
-
-      background: #000;
-      color: #fff;
-
-      justify-content: center;
-      align-items: center;
-
-      text-align: center;
-      padding: 30px;
-    }
-
-    #rotateScreen h2 {
-      font-size: 30px;
-      margin-bottom: 15px;
-    }
-
-    #rotateScreen p {
-      font-size: 17px;
-      opacity: .8;
-    }
-
-    /* SHOW ROTATION MESSAGE ON PHONES */
-    @media (orientation: portrait) and (max-width: 900px) {
-      #rotateScreen {
-        display: flex;
-      }
-    }
-  </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- START SCREEN -->
-  <div id="startScreen">
-    <h1>
-      KOLLINSKY<br>
-      BATTLE ROYALE
-    </h1>
+    <!-- START SCREEN -->
+    <div id="startScreen">
 
-    <button id="startButton">
-      START GAME
-    </button>
-  </div>
+        <div class="startContent">
 
-  <!-- PHONE ROTATION MESSAGE -->
-  <div id="rotateScreen">
-    <div>
-      <h2>↻ Rotate Your Phone</h2>
-      <p>Please turn your phone sideways to play.</p>
+            <h1>KOLLINSKY</h1>
+
+            <h2>BATTLE ROYALE</h2>
+
+            <p>ENTER THE BATTLEFIELD</p>
+
+            <button id="startButton">
+                START GAME
+            </button>
+
+        </div>
+
     </div>
-  </div>
 
-  <!-- GAME CANVAS -->
-  <canvas id="game"></canvas>
 
-  <!-- LOCAL THREE.JS -->
-  <script src="three.min.js"></script>
+    <!-- ROTATE PHONE SCREEN -->
+    <div id="rotateScreen">
 
-  <!-- GAME JAVASCRIPT -->
-  <script src="game.js"></script>
+        <div class="rotateContent">
+
+            <div class="phoneIcon">📱</div>
+
+            <h2>ROTATE YOUR DEVICE</h2>
+
+            <p>
+                Please rotate your phone horizontally
+                to play the game.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- GAME CONTAINER -->
+    <div id="gameContainer">
+
+        <!-- THREE.JS GAME -->
+        <canvas id="game"></canvas>
+
+
+        <!-- GAME HUD -->
+        <div id="hud">
+
+            <!-- TOP HUD -->
+            <div class="topHud">
+
+                <div class="playerInfo">
+
+                    <span id="playerName">
+                        KOLLINSKY
+                    </span>
+
+                    <span id="health">
+                        HP: 100
+                    </span>
+
+                </div>
+
+
+                <div class="battleInfo">
+
+                    <span id="kills">
+                        KILLS: 0
+                    </span>
+
+                    <span id="alive">
+                        ALIVE: 20
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- ZONE -->
+            <div id="zone">
+
+                SAFE ZONE
+
+            </div>
+
+
+            <!-- CROSSHAIR -->
+            <div id="crosshair">
+
+                <div class="crosshairHorizontal"></div>
+
+                <div class="crosshairVertical"></div>
+
+            </div>
+
+
+            <!-- AMMO -->
+            <div id="ammo">
+
+                <span id="weaponName">
+                    ASSAULT RIFLE
+                </span>
+
+                <span id="ammoCount">
+                    30 / 120
+                </span>
+
+            </div>
+
+
+            <!-- MESSAGE -->
+            <div id="message">
+
+                READY
+
+            </div>
+
+
+            <!-- MOBILE CONTROLS -->
+            <div id="mobileControls">
+
+                <!-- MOVEMENT -->
+                <div id="joystickArea">
+
+                    <div id="joystick">
+
+                        <div id="joystickKnob"></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SHOOT BUTTON -->
+                <button id="shootButton">
+
+                    SHOOT
+
+                </button>
+
+
+                <!-- AIM BUTTON -->
+                <button id="aimButton">
+
+                    AIM
+
+                </button>
+
+
+                <!-- JUMP BUTTON -->
+                <button id="jumpButton">
+
+                    JUMP
+
+                </button>
+
+
+                <!-- RELOAD BUTTON -->
+                <button id="reloadButton">
+
+                    RELOAD
+
+                </button>
+
+
+                <!-- RUN BUTTON -->
+                <button id="runButton">
+
+                    RUN
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- THREE.JS ENGINE -->
+    <script src="three.min.js"></script>
+
+
+    <!-- GAME JAVASCRIPT -->
+    <script src="game.js"></script>
 
 </body>
 </html>
